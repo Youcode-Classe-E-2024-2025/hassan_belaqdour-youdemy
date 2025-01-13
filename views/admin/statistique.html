@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <title>Manager Dashboard</title>
+    <script src="../script/script.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <header class="w-full bg-gray-800 p-3 flex justify-between items-center shadow-md fixed top-0 left-0 z-50">
+            <div class="flex items-center gap-2 text-teal-400 cursor-pointer">
+                <i class="bx bx-infinite text-3xl"></i>
+                <span class="text-xl font-semibold">Youdemy</span>
+            </div>
+    <nav class="flex space-x-4">
+        <a href="#" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="statistique">
+            <i class="bx bx-line-chart text-teal-400"></i>
+            <span>Statistique</span>
+        </a>
+        <a href="#" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="add_project">
+            <i class="bx bx-user text-teal-400"></i>
+            <span>Validation enseignants</span>
+        </a>
+        <a href="#" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="add_task">
+            <i class="bx bx-cog text-teal-400"></i>
+            <span>Gestion utilisateurs</span>
+        </a>
+        <a href="#" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="assign_task">
+            <i class="bx bx-folder text-teal-400"></i>
+            <span>Gestion des cours</span>
+        </a>
+    </nav>
+    <div class="flex space-x-4">
+        <a href="#" class="flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md">
+            <i class="bx bx-log-in text-teal-400"></i>
+            <span>Login</span>
+        </a>
+        <a href="#" class="flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md">
+            <i class="bx bx-user-plus text-teal-400"></i>
+            <span>Signup</span>
+        </a>
+    </div>
+</header>
+
+<!-- To avoid content being hidden under the fixed header -->
+<div class="pt-20"></div>
+
+
+</body>
+</html>
