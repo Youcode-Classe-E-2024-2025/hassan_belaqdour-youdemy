@@ -1,31 +1,44 @@
-<?php 
+<?php
 
-class database{
+class Database
+{
 
     private $host = "localhost";
     private $dbname = "youdemy";
     private $username = "root";
     private $password = "";
-    private $conn ;
+    private $conn;
 
-
-    public function __construct(){
-
+    public function __construct()
+    {
         try {
             $this->conn = new PDO(
                 "mysql:host={$this->host};dbname={$this->dbname};charset=utf8",
+
                 $this->username,
+
                 $this->password
+                
             );
-            $this->conn->setAttribute( PDO::ATTR_ERRMODE, value: PDO::ERRMODE_EXCEPTION);
+            
+
+
+
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die("erreur de connexion : " .$e->getMessage());           
+            
+            die("Erreur de connexion : " . $e->getMessage());
+        
         }
     }
 
-    public function getConnection(): PDO{
+    public function getConnection(): PDO
+    {
+        if ($this->conn === null) {
+            $this->__construct();
+        }
         return $this->conn;
-    }  
+    }
 }
 
 ?>
