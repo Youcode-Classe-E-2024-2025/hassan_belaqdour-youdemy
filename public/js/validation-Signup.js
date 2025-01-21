@@ -1,4 +1,6 @@
-document.querySelector("signupform").addEventListener("submit", function (event) {
+document
+  .querySelector("#signupform")
+  .addEventListener("submit", function (event) {
     event.preventDefault();
 
     const username = document.querySelector('input[name="username"]').value;
@@ -14,7 +16,7 @@ document.querySelector("signupform").addEventListener("submit", function (event)
 
     if (!usernameRegex.test(username)) {
       alert(
-        "Username must be 3-20 characters and can only contain letters, numbers, and underscores."
+        "username contient 3-20 characteres avec selement des lettres ,numero et underscores."
       );
       return;
     }
