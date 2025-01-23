@@ -19,29 +19,43 @@ $stats = $teacher->getCourseStats();
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
-    <header class="bg-gray-800 text-white p-4">
-        <h1>Teacher Stats</h1>
+<body class="bg-gray-50">
+    <header class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-lg">
+        <div class="container mx-auto">
+            <h1 class="text-3xl font-bold">Teacher Stats</h1>
+        </div>
     </header>
-    <div class="p-4">
-        <a href="dashboard.php" class="text-blue-600">Back to Dashboard</a>
-        <hr class="my-4">
-        <table class="border-collapse w-full">
-            <thead>
-                <tr class="bg-gray-200">
-                    <th class="border p-2">Course Title</th>
-                    <th class="border p-2">Enrolled Students</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($stats as $row): ?>
-                    <tr>
-                        <td class="border p-2"><?php echo htmlspecialchars($row['title']); ?></td>
-                        <td class="border p-2"><?php echo $row['total_students']; ?></td>
+
+    <div class="container mx-auto p-6">
+        <a href="dashboard.php" class="text-purple-600 hover:text-purple-800 transition duration-300 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                    clip-rule="evenodd" />
+            </svg>
+            Back to Dashboard
+        </a>
+        <hr class="my-6 border-gray-200">
+
+        <div class="bg-white p-6 rounded-xl shadow-lg">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Course Enrollment Statistics</h2>
+            <table class="min-w-full border-collapse">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border p-3 text-left text-gray-700 font-semibold">Course Title</th>
+                        <th class="border p-3 text-left text-gray-700 font-semibold">Enrolled Students</th>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <?php foreach ($stats as $row): ?>
+                        <tr class="hover:bg-gray-50 transition duration-300">
+                            <td class="border p-3 text-gray-600"><?php echo htmlspecialchars($row['title']); ?></td>
+                            <td class="border p-3 text-gray-600"><?php echo $row['total_students']; ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 
