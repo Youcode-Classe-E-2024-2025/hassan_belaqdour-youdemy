@@ -1,49 +1,90 @@
+<?php
+session_start();
+require_once '../classes/Admin.php';
+
+if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'admin') {
+    header("Location: ../auth/login.php");
+    exit;
+}
+
+$admin = new Admin($_SESSION['user_id']);
+
+require_once '../database.php';
+$db = new Database();
+$conn = $db->getConnection();
+
+if (isset($_POST['mass_tags'])) {
+    $raw = trim($_POST['mass_tags']);
+    $tagNames = array_map('trim', explode(',', $raw));
+    foreach ($tagNames as $t) {
+        if (!empty($t)) {
+            $stmt = $conn->prepare("INSERT INTO tags (name) VALUES (:name)");
+            $stmt->execute(['name' => $t]);
+        }
+    }
+    header("Location: manage_tags.php");
+    exit;
+}
+
+if (isset($_GET['delete'])) {
+    $tagId = (int) $_GET['delete'];
+    $stmt = $conn->prepare("DELETE FROM tags WHERE id = :id");
+    $stmt->execute(['id' => $tagId]);
+    header("Location: manage_tags.php");
+    exit;
+}
+
+$stmt = $conn->prepare("SELECT * FROM tags");
+$stmt->execute();
+$tags = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Tags</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <title>Manager Dashboard</title>
-    <script src="../script/script.js" defer></script>
-    <title>Document</title>
 </head>
+
 <body>
-    <header class="w-full bg-gray-800 p-3 flex justify-between items-center shadow-md fixed top-0 left-0 z-50">
-            <div class="flex items-center gap-2 text-teal-400 cursor-pointer">
-                <i class="bx bx-infinite text-3xl"></i>
-                <span class="text-xl font-semibold">Youdemy</span>
-            </div>
-    <nav class="flex space-x-4">
-        <a href="statistique.html" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="statistique">
-            <i class="bx bx-line-chart text-teal-400"></i>
-            <span>Statistique</span>    
-        </a>
-        <a href="validation-enseignants.html" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="add_project">
-            <i class="bx bx-user text-teal-400"></i>
-            <span>Validation enseignants</span>
-        </a>
-        <a href="gestion-utilisateurs.html" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="add_task">
-            <i class="bx bx-cog text-teal-400"></i>
-            <span>Gestion utilisateurs</span>
-        </a>
-        <a href="gestion-des-cours.html" class="menu-link flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md" data-page="assign_task">
-            <i class="bx bx-folder text-teal-400"></i>
-            <span>Gestion des cours</span>
-        </a>
-    </nav>
-    <div class="flex space-x-4">
-        <a href="logout.php" class="flex items-center space-x-3 text-gray-300 hover:bg-gray-700 p-3 rounded-md">
-            <i class="bx bx-log-out text-teal-400"></i>
-            <span>Logout</span>
-        </a>
+    <header class="bg-gray-800 text-white p-4">
+        <h1>Manage Tags</h1>
+    </header>
+    <div class="p-4">
+        <a href="dashboard.php" class="text-blue-600">Back to Dashboard</a> |
+        <a href="manage_categories.php" class="text-blue-600">Manage Categories</a>
+        <hr class="my-4">
+
+        <form method="POST" class="mb-4">
+            <label class="block mb-2">Enter comma-separated tags:</label>
+            <textarea name="mass_tags" rows="3" class="border p-2 w-1/2" placeholder="tag1, tag2, tag3"></textarea>
+            <br>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 mt-2">Add Tags</button>
+        </form>
+
+        <table class="border-collapse w-full">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">ID</th>
+                    <th class="border p-2">Tag Name</th>
+                    <th class="border p-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tags as $tag): ?>
+                    <tr>
+                        <td class="border p-2"><?php echo $tag['id']; ?></td>
+                        <td class="border p-2"><?php echo htmlspecialchars($tag['name']); ?></td>
+                        <td class="border p-2">
+                            <a href="?delete=<?php echo $tag['id']; ?>" class="text-red-600"
+                                onclick="return confirm('Delete this tag?');">Delete</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
-</header>
-
-
-<div class="pt-20"></div>
-
-
 </body>
+
 </html>
