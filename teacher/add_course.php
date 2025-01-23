@@ -26,7 +26,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = trim($_POST['content']);
     $format = trim($_POST['format']);
     $categoryId = (int) ($_POST['category_id'] ?? 0);
-
     $tagIds = isset($_POST['tag_ids']) ? $_POST['tag_ids'] : [];
 
     $teacher->addCourse($title, $description, $content, $categoryId, $format, $tagIds);

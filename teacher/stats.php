@@ -12,13 +12,11 @@ $stats = $teacher->getCourseStats();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Teacher Stats</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-50">
     <header class="bg-gradient-to-r from-purple-600 to-indigo-700 text-white p-6 shadow-lg">
         <div class="container mx-auto">
@@ -29,9 +27,7 @@ $stats = $teacher->getCourseStats();
     <div class="container mx-auto p-6">
         <a href="dashboard.php" class="text-purple-600 hover:text-purple-800 transition duration-300 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd"
-                    d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                    clip-rule="evenodd" />
+                <path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd" />
             </svg>
             Back to Dashboard
         </a>
@@ -58,5 +54,4 @@ $stats = $teacher->getCourseStats();
         </div>
     </div>
 </body>
-
 </html>
